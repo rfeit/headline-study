@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Headline Study</title>
+    <script src="https://unpkg.com/jspsych@7.3.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.2"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.1.2"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-preload@1.1.2"></script>
+
+    <link
+      href="https://unpkg.com/jspsych@7.3.1/css/jspsych.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body></body>
+  <script>
+    // Initialize jsPsych
+    var jsPsych = initJsPsych({
+      on_finish: function () {
+        jsPsych.data.displayData();
+      },
+    });
+
+    // Timeline contains set of trials to run in the experiment
+    var timeline = [];
+
+    // Preload media/images
+    var preload = {
+      type: jsPsychPreload,
+      //images: ['img/blue.png', 'img/orange.png'],
+    };
+
+    // Welcome message
+    var welcome = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: 'Welcome to the experiment. Press any key to begin.',
+    };
+
+    // Instructions
+    var instructions = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: `
+    <p>In each round, you will see three headlines.</p>
+    <p>Please click on the headline you would most like to read, and you will get an opportunity to read the articles you select later in the experiment.</p>
+    <p>There will be six rounds of articles to view. This should take approximately two minutes.</p>
+    <p>Press any key to begin.</p>
+  `,
+      post_trial_gap: 2000,
+    };
+
+    // Trial stimuli array for timeline variables
+    var test_stimuli = [
+      { stimulus: 'img/blue.png', correct_response: 'f' },
+      { stimulus: 'img/orange.png', correct_response: 'j' },
+    ];
+
+    // Fixation trial
+    var fixation = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: '<div style="font-size:60px;">+</div>',
+      choices: 'NO_KEYS',
+      trial_duration: function () {
+        return jsPsych.randomization.sampleWithoutReplacement(
+          [250, 500, 750, 1000, 1250, 1500, 1750, 2000],
+          1
+        )[0];
+      },
+      data: {
+        task: 'fixation',
+      },
+    };
+
+    // Test Trial using "stimulus" timelineVariable
+    var test = {
+      type: jsPsychImageKeyboardResponse,
+      stimulus: jsPsych.timelineVariable('stimulus'),
+      choices: ['f', 'j'],
+      data: {
+        task: 'response',
+        correct_response: jsPsych.timelineVariable('correct_response'),
+      },
+      on_finish: function (data) {
+        data.correct = jsPsych.pluginAPI.compareKeys(
+          data.response,
+          data.correct_response
+        );
+        jsPsych.data.displayData();
+      },
+    };
+
+    // Define test procedure using the stimuli
+    var test_procedure = {
+      timeline: [fixation, test],
+      timeline_variables: test_stimuli,
+      randomize_order: true,
+      repetitions: 5,
+    };
+
+    // Debrief block
+    var debrief_block = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function () {
+        var trials = jsPsych.data.get().filter({ task: 'response' });
+        var correct_trials = trials.filter({ correct: true });
+        var accuracy = Math.round(
+          (correct_trials.count() / trials.count()) * 100
+        );
+        var rt = Math.round(correct_trials.select('rt').mean());
+
+        return `<p>You responded correctly on ${accuracy}% of the trials.</p>
+      <p>Your average response time was ${rt}ms.</p>
+      <p>Press any key to complete the experiment. Thank you!</p>`;
+      },
+    };
+
+    // Push the trials onto the timeline array
+    timeline.push(preload);
+    timeline.push(welcome);
+    timeline.push(instructions);
+    timeline.push(test_procedure);
+    timeline.push(debrief_block);
+
+    // Run the experiment
+    jsPsych.run(timeline);
+  </script>
+</html>
