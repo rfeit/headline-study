@@ -7,6 +7,7 @@
     <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.1.2"></script>
     <script src="https://unpkg.com/@jspsych/plugin-preload@1.1.2"></script>
     <script src="https://unpkg.com/@jspsych/plugin-survey@0.2.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.1.2"></script>
 
     <link
       href="https://unpkg.com/jspsych@7.3.1/css/jspsych.css"
@@ -17,6 +18,16 @@
       rel="stylesheet"
       href="https://unpkg.com/@jspsych/plugin-survey@0.2.1/css/survey.css"
     />
+    <style>
+      .jspsych-html-button-response-button {
+        display: block !important;
+      }
+      .headline {
+        display: block;
+        margin: 20px auto;
+        font-size: 20px;
+      }
+    </style>
   </head>
   <body></body>
   <script>
@@ -51,7 +62,7 @@
       <p>There will be six rounds of articles to view. This should take approximately two minutes.</p>
       <p>Press any key to begin.</p>
     `,
-      post_trial_gap: 2000,
+      post_trial_gap: 500,
     };
 
     // Headline arrays
@@ -228,106 +239,293 @@
     var rankedHeadlines = [];
 
     // New York Trials
-    // TODO: look at html button response plugin
 
+    // Shuffle the headlines and present
     infoLevel = shuffleArray(infoLevel);
-    var nyTrial1 = {
-      type: jsPsychSurvey,
-      pages: [
-        [
-          {
-            type: 'multi-choice',
-            prompt: '',
-            required: true,
-            options: [
-              newYork[0].headlines[infoLevel[0]],
-              newYork[1].headlines[infoLevel[1]],
-              newYork[2].headlines[infoLevel[2]],
-            ],
-          },
-        ],
-      ],
-    };
-
-    // Push unused headlines onto ranking list
-    rankedHeadlines.push({
-      headline: newYork[0].headlines[infoLevel[1]],
-      infoLevel: infoLevel[1],
-      story_id: newYork[0].story_id,
-    });
-    rankedHeadlines.push({
-      headline: newYork[1].headlines[infoLevel[2]],
-      infoLevel: infoLevel[2],
-      story_id: newYork[1].story_id,
-    });
-    rankedHeadlines.push({
-      headline: newYork[2].headlines[infoLevel[0]],
-      infoLevel: infoLevel[0],
-      story_id: newYork[2].story_id,
-    });
-
-    // Trial stimuli array for timeline variables
-    var test_stimuli = [
-      { stimulus: 'img/blue.png', correct_response: 'f' },
-      { stimulus: 'img/orange.png', correct_response: 'j' },
+    // Array of options presented to participant for a given trial
+    var options1 = [
+      {
+        story_id: newYork[0].story_id,
+        info_level: infoLevel[0],
+        headline: newYork[0].headlines[infoLevel[0]],
+      },
+      {
+        story_id: newYork[1].story_id,
+        info_level: infoLevel[1],
+        headline: newYork[1].headlines[infoLevel[1]],
+      },
+      {
+        story_id: newYork[2].story_id,
+        info_level: infoLevel[2],
+        headline: newYork[2].headlines[infoLevel[2]],
+      },
     ];
+    // Array to add options to for Phase 2 ranking
+    var rankOptions = [];
+    rankOptions.push(
+      newYork[0].headlines[infoLevel[1]],
+      newYork[1].headlines[infoLevel[2]],
+      newYork[2].headlines[infoLevel[0]]
+    );
 
-    // Fixation trial
-    var fixation = {
-      type: jsPsychHtmlKeyboardResponse,
-      stimulus: '<div style="font-size:60px;">+</div>',
-      choices: 'NO_KEYS',
-      trial_duration: function () {
-        return jsPsych.randomization.sampleWithoutReplacement(
-          [250, 500, 750, 1000, 1250, 1500, 1750, 2000],
-          1
-        )[0];
-      },
+    var nyTrial1 = {
+      type: jsPsychHtmlButtonResponse,
+      stimulus: '',
+      choices: [
+        options1[0].headline,
+        options1[1].headline,
+        options1[2].headline,
+      ],
+      button_html: '<button class="jspsych-btn headline">%choice%</button>',
+      post_trial_gap: 500,
       data: {
-        task: 'fixation',
-      },
-    };
-
-    // Test Trial using "stimulus" timelineVariable
-    var test = {
-      type: jsPsychImageKeyboardResponse,
-      stimulus: jsPsych.timelineVariable('stimulus'),
-      choices: ['f', 'j'],
-      data: {
-        task: 'response',
-        correct_response: jsPsych.timelineVariable('correct_response'),
+        phase: 1,
       },
       on_finish: function (data) {
-        data.correct = jsPsych.pluginAPI.compareKeys(
-          data.response,
-          data.correct_response
-        );
-        jsPsych.data.displayData();
+        data.phase;
+        data.options = options1;
+        data.chosen_story_id = newYork[data.response].story_id;
+        data.chosen_info_level = infoLevel[data.response];
+        data.chosen_headline =
+          newYork[data.response].headlines[infoLevel[data.response]];
       },
     };
 
-    // Define test procedure using the stimuli
-    var test_procedure = {
-      timeline: [fixation, test],
-      timeline_variables: test_stimuli,
-      randomize_order: true,
-      repetitions: 5,
+    infoLevel = shuffleArray(infoLevel);
+    var options2 = [
+      {
+        story_id: newYork[3].story_id,
+        info_level: infoLevel[0],
+        headline: newYork[3].headlines[infoLevel[0]],
+      },
+      {
+        story_id: newYork[4].story_id,
+        info_level: infoLevel[1],
+        headline: newYork[4].headlines[infoLevel[1]],
+      },
+      {
+        story_id: newYork[5].story_id,
+        info_level: infoLevel[2],
+        headline: newYork[5].headlines[infoLevel[2]],
+      },
+    ];
+    // Array to add options to for Phase 2 ranking
+    var rankOptions = [];
+    rankOptions.push(
+      newYork[3].headlines[infoLevel[1]],
+      newYork[4].headlines[infoLevel[2]],
+      newYork[5].headlines[infoLevel[0]]
+    );
+
+    var nyTrial2 = {
+      type: jsPsychHtmlButtonResponse,
+      stimulus: '',
+      choices: [
+        options2[0].headline,
+        options2[1].headline,
+        options2[2].headline,
+      ],
+      button_html: '<button class="jspsych-btn headline">%choice%</button>',
+      post_trial_gap: 500,
+      data: {
+        phase: 1,
+      },
+      on_finish: function (data) {
+        data.phase;
+        data.options = options2;
+        data.chosen_story_id = newYork[data.response + 3].story_id;
+        data.chosen_info_level = infoLevel[data.response];
+        data.chosen_headline =
+          newYork[data.response + 3].headlines[infoLevel[data.response]];
+      },
     };
 
-    // Debrief block
-    var debrief_block = {
-      type: jsPsychHtmlKeyboardResponse,
-      stimulus: function () {
-        var trials = jsPsych.data.get().filter({ task: 'response' });
-        var correct_trials = trials.filter({ correct: true });
-        var accuracy = Math.round(
-          (correct_trials.count() / trials.count()) * 100
-        );
-        var rt = Math.round(correct_trials.select('rt').mean());
+    // Technology Trials
 
-        return `<p>You responded correctly on ${accuracy}% of the trials.</p>
-        <p>Your average response time was ${rt}ms.</p>
-        <p>Press any key to complete the experiment. Thank you!</p>`;
+    infoLevel = shuffleArray(infoLevel);
+    var options3 = [
+      {
+        story_id: technology[0].story_id,
+        info_level: infoLevel[0],
+        headline: technology[0].headlines[infoLevel[0]],
+      },
+      {
+        story_id: technology[1].story_id,
+        info_level: infoLevel[1],
+        headline: technology[1].headlines[infoLevel[1]],
+      },
+      {
+        story_id: technology[2].story_id,
+        info_level: infoLevel[2],
+        headline: technology[2].headlines[infoLevel[2]],
+      },
+    ];
+    rankOptions.push(
+      technology[0].headlines[infoLevel[1]],
+      technology[1].headlines[infoLevel[2]],
+      technology[2].headlines[infoLevel[0]]
+    );
+
+    var techTrial1 = {
+      type: jsPsychHtmlButtonResponse,
+      stimulus: '',
+      choices: [
+        options3[0].headline,
+        options3[1].headline,
+        options3[2].headline,
+      ],
+      button_html: '<button class="jspsych-btn headline">%choice%</button>',
+      post_trial_gap: 500,
+      data: {
+        phase: 1,
+      },
+      on_finish: function (data) {
+        data.phase;
+        data.options = options3;
+        data.chosen_story_id = technology[data.response].story_id;
+        data.chosen_info_level = infoLevel[data.response];
+        data.chosen_headline =
+          technology[data.response].headlines[infoLevel[data.response]];
+      },
+    };
+
+    infoLevel = shuffleArray(infoLevel);
+    var options4 = [
+      {
+        story_id: technology[3].story_id,
+        info_level: infoLevel[0],
+        headline: technology[3].headlines[infoLevel[0]],
+      },
+      {
+        story_id: technology[4].story_id,
+        info_level: infoLevel[1],
+        headline: technology[4].headlines[infoLevel[1]],
+      },
+      {
+        story_id: technology[5].story_id,
+        info_level: infoLevel[2],
+        headline: technology[5].headlines[infoLevel[2]],
+      },
+    ];
+    rankedHeadlines.push(
+      technology[3].headlines[infoLevel[1]],
+      technology[4].headlines[infoLevel[2]],
+      technology[5].headlines[infoLevel[0]]
+    );
+    var techTrial2 = {
+      type: jsPsychHtmlButtonResponse,
+      stimulus: '',
+      choices: [
+        options4[0].headline,
+        options4[1].headline,
+        options4[2].headline,
+      ],
+      button_html: '<button class="jspsych-btn headline">%choice%</button>',
+      post_trial_gap: 500,
+      data: {
+        phase: 1,
+      },
+      on_finish: function (data) {
+        data.phase;
+        data.options = options4;
+        data.chosen_story_id = technology[data.response + 3].story_id;
+        data.chosen_info_level = infoLevel[data.response];
+        data.chosen_headline =
+          technology[data.response + 3].headlines[infoLevel[data.response]];
+      },
+    };
+
+    // Arts Trials
+
+    infoLevel = shuffleArray(infoLevel);
+    var options5 = [
+      {
+        story_id: arts[0].story_id,
+        info_level: infoLevel[0],
+        headline: arts[0].headlines[infoLevel[0]],
+      },
+      {
+        story_id: arts[1].story_id,
+        info_level: infoLevel[1],
+        headline: arts[1].headlines[infoLevel[1]],
+      },
+      {
+        story_id: arts[2].story_id,
+        info_level: infoLevel[2],
+        headline: arts[2].headlines[infoLevel[2]],
+      },
+    ];
+    rankedHeadlines.push(
+      arts[0].headlines[infoLevel[1]],
+      arts[1].headlines[infoLevel[2]],
+      arts[2].headlines[infoLevel[0]]
+    );
+    var artsTrial1 = {
+      type: jsPsychHtmlButtonResponse,
+      stimulus: '',
+      choices: [
+        options5[0].headline,
+        options5[1].headline,
+        options5[2].headline,
+      ],
+      button_html: '<button class="jspsych-btn headline">%choice%</button>',
+      post_trial_gap: 500,
+      data: {
+        phase: 1,
+      },
+      on_finish: function (data) {
+        data.phase;
+        data.options = options5;
+        data.chosen_story_id = arts[data.response].story_id;
+        data.chosen_info_level = infoLevel[data.response];
+        data.chosen_headline =
+          arts[data.response].headlines[infoLevel[data.response]];
+      },
+    };
+
+    infoLevel = shuffleArray(infoLevel);
+    options6 = [
+      {
+        story_id: arts[3].story_id,
+        info_level: infoLevel[0],
+        headline: arts[3].headlines[infoLevel[0]],
+      },
+      {
+        story_id: arts[4].story_id,
+        info_level: infoLevel[1],
+        headline: arts[4].headlines[infoLevel[1]],
+      },
+      {
+        story_id: arts[5].story_id,
+        info_level: infoLevel[2],
+        headline: arts[5].headlines[infoLevel[2]],
+      },
+    ];
+    rankedHeadlines.push(
+      arts[3].headlines[infoLevel[1]],
+      arts[4].headlines[infoLevel[2]],
+      arts[5].headlines[infoLevel[0]]
+    );
+    var artsTrial2 = {
+      type: jsPsychHtmlButtonResponse,
+      stimulus: '',
+      choices: [
+        options6[0].headline,
+        options6[1].headline,
+        options6[2].headline,
+      ],
+      button_html: '<button class="jspsych-btn headline">%choice%</button>',
+      post_trial_gap: 500,
+      data: {
+        phase: 1,
+      },
+      on_finish: function (data) {
+        data.phase;
+        data.options = options6;
+        data.chosen_story_id = arts[data.response + 3].story_id;
+        data.chosen_info_level = infoLevel[data.response];
+        data.chosen_headline =
+          arts[data.response + 3].headlines[infoLevel[data.response]];
       },
     };
 
@@ -336,8 +534,11 @@
     timeline.push(welcome);
     timeline.push(instructions1);
     timeline.push(nyTrial1);
-    timeline.push(test_procedure);
-    timeline.push(debrief_block);
+    timeline.push(nyTrial2);
+    timeline.push(techTrial1);
+    timeline.push(techTrial2);
+    timeline.push(artsTrial1);
+    timeline.push(artsTrial2);
 
     // Run the experiment
     jsPsych.run(timeline);

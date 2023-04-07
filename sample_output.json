@@ -1,0 +1,211 @@
+[
+	{
+		"success": true,
+		"timeout": false,
+		"failed_images": [],
+		"failed_audio": [],
+		"failed_video": [],
+		"trial_type": "preload",
+		"trial_index": 0,
+		"time_elapsed": 1,
+		"internal_node_id": "0.0-0.0"
+	},
+	{
+		"rt": 591,
+		"stimulus": "Welcome to the experiment. Press any key to begin.",
+		"response": " ",
+		"trial_type": "html-keyboard-response",
+		"trial_index": 1,
+		"time_elapsed": 592,
+		"internal_node_id": "0.0-1.0"
+	},
+	{
+		"rt": 271,
+		"stimulus": "\n      <p>In each round, you will see three headlines.</p>\n      <p>Please click on the headline you would most like to read, and you will get an opportunity to read the articles you select later in the experiment.</p>\n      <p>There will be six rounds of articles to view. This should take approximately two minutes.</p>\n      <p>Press any key to begin.</p>\n    ",
+		"response": " ",
+		"trial_type": "html-keyboard-response",
+		"trial_index": 2,
+		"time_elapsed": 864,
+		"internal_node_id": "0.0-2.0"
+	},
+	{
+		"rt": 1038,
+		"stimulus": "",
+		"response": 0,
+		"phase": 1,
+		"trial_type": "html-button-response",
+		"trial_index": 3,
+		"time_elapsed": 2411,
+		"internal_node_id": "0.0-3.0",
+		"options": [
+			{
+				"story_id": 2,
+				"info_level": 0,
+				"headline": "A Band Rocks on Toward a Dream"
+			},
+			{
+				"story_id": 3,
+				"info_level": 2,
+				"headline": "Giuliani Administration Restores Tweed Courthouse, Symbol of Public Corruption in Lower Manhattan"
+			},
+			{
+				"story_id": 5,
+				"info_level": 1,
+				"headline": "Historians Team Up to Create an Encyclopedia of New Jersey"
+			}
+		],
+		"chosen_story_id": 2,
+		"chosen_info_level": 0,
+		"chosen_headline": "A Band Rocks on Toward a Dream"
+	},
+	{
+		"rt": 760,
+		"stimulus": "",
+		"response": 1,
+		"phase": 1,
+		"trial_type": "html-button-response",
+		"trial_index": 4,
+		"time_elapsed": 3674,
+		"internal_node_id": "0.0-4.0",
+		"options": [
+			{
+				"story_id": 6,
+				"info_level": 2,
+				"headline": "Gynecologist Lauersen Accused of $4 Million Billing Fraud for Infertility Surgeries in Landmark Case"
+			},
+			{
+				"story_id": 4,
+				"info_level": 0,
+				"headline": "New York Librarian Retires"
+			},
+			{
+				"story_id": 1,
+				"info_level": 1,
+				"headline": "Famous Stone Pony Night Club and King Biscuit Radio Show Unite"
+			}
+		],
+		"chosen_story_id": 4,
+		"chosen_info_level": 1,
+		"chosen_headline": "New York Librarian Retires After 53 Years at Library"
+	},
+	{
+		"rt": 471,
+		"stimulus": "",
+		"response": 2,
+		"phase": 1,
+		"trial_type": "html-button-response",
+		"trial_index": 5,
+		"time_elapsed": 4651,
+		"internal_node_id": "0.0-5.0",
+		"options": [
+			{
+				"story_id": 12,
+				"info_level": 0,
+				"headline": "Tech Q&A: USB 2.0"
+			},
+			{
+				"story_id": 10,
+				"info_level": 1,
+				"headline": "Personal Journal Websites: New Trend Redefines Internet Use"
+			},
+			{
+				"story_id": 9,
+				"info_level": 2,
+				"headline": "Experts Predict Key Educational Software and Technology Challenges for Schools in Upcoming Year"
+			}
+		],
+		"chosen_story_id": 9,
+		"chosen_info_level": 2,
+		"chosen_headline": "Experts Predict Key Educational Software and Technology Challenges for Schools in Upcoming Year"
+	},
+	{
+		"rt": 523,
+		"stimulus": "",
+		"response": 0,
+		"phase": 1,
+		"trial_type": "html-button-response",
+		"trial_index": 6,
+		"time_elapsed": 5678,
+		"internal_node_id": "0.0-6.0",
+		"options": [
+			{
+				"story_id": 8,
+				"info_level": 0,
+				"headline": "Computer Challenges Scientific Theory"
+			},
+			{
+				"story_id": 11,
+				"info_level": 2,
+				"headline": "Technology Review: High Resolution Plasma TV Displays Cost Thousands"
+			},
+			{
+				"story_id": 7,
+				"info_level": 1,
+				"headline": "Military Satellite Station Encounters Technological Issues Requiring Significant Investments"
+			}
+		],
+		"chosen_story_id": 8,
+		"chosen_info_level": 0,
+		"chosen_headline": "Computer Challenges Scientific Theory"
+	},
+	{
+		"rt": 506,
+		"stimulus": "",
+		"response": 1,
+		"phase": 1,
+		"trial_type": "html-button-response",
+		"trial_index": 7,
+		"time_elapsed": 6696,
+		"internal_node_id": "0.0-7.0",
+		"options": [
+			{
+				"story_id": 16,
+				"info_level": 0,
+				"headline": "Inside a Tribute to Bruce Springsteen"
+			},
+			{
+				"story_id": 13,
+				"info_level": 1,
+				"headline": "Rapper Q-Unique Encourages Audience Participation at S.O.B's"
+			},
+			{
+				"story_id": 18,
+				"info_level": 2,
+				"headline": "Nickelodeon's Messy 'Slimetime Live' Starts New Season Hosted by Dave Aizer"
+			}
+		],
+		"chosen_story_id": 13,
+		"chosen_info_level": 1,
+		"chosen_headline": "Rapper Q-Unique Encourages Audience Participation at S.O.B's"
+	},
+	{
+		"rt": 460,
+		"stimulus": "",
+		"response": 2,
+		"phase": 1,
+		"trial_type": "html-button-response",
+		"trial_index": 8,
+		"time_elapsed": 7664,
+		"internal_node_id": "0.0-8.0",
+		"options": [
+			{
+				"story_id": 14,
+				"info_level": 0,
+				"headline": "Dance: A Year in Review"
+			},
+			{
+				"story_id": 15,
+				"info_level": 1,
+				"headline": "New Foundation Awards Digital Artists $91K in Grants"
+			},
+			{
+				"story_id": 17,
+				"info_level": 2,
+				"headline": "New Research on Ancient Spartan Women Reimagines their Societal Roles"
+			}
+		],
+		"chosen_story_id": 17,
+		"chosen_info_level": 2,
+		"chosen_headline": "New Research on Ancient Spartan Women Reimagines their Societal Roles"
+	}
+]
