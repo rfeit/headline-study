@@ -1,3 +1,1 @@
-# headline-study
-
-dear god help me god please
+# Investigating the Information Gap: Curiosity in News Headlines
