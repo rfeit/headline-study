@@ -224,6 +224,9 @@
     // Low/med/high information array
     var infoLevel = [0, 1, 2];
 
+    // Ranked headlines
+    var rankedHeadlines = [];
+
     // New York Trials
     // TODO: look at html button response plugin
 
@@ -245,6 +248,23 @@
         ],
       ],
     };
+
+    // Push unused headlines onto ranking list
+    rankedHeadlines.push({
+      headline: newYork[0].headlines[infoLevel[1]],
+      infoLevel: infoLevel[1],
+      story_id: newYork[0].story_id,
+    });
+    rankedHeadlines.push({
+      headline: newYork[1].headlines[infoLevel[2]],
+      infoLevel: infoLevel[2],
+      story_id: newYork[1].story_id,
+    });
+    rankedHeadlines.push({
+      headline: newYork[2].headlines[infoLevel[0]],
+      infoLevel: infoLevel[0],
+      story_id: newYork[2].story_id,
+    });
 
     // Trial stimuli array for timeline variables
     var test_stimuli = [
