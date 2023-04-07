@@ -221,6 +221,31 @@
     technology = shuffleArray(technology);
     arts = shuffleArray(arts);
 
+    // Low/med/high information array
+    var infoLevel = [0, 1, 2];
+
+    // New York Trials
+    // TODO: look at html button response plugin
+
+    infoLevel = shuffleArray(infoLevel);
+    var nyTrial1 = {
+      type: jsPsychSurvey,
+      pages: [
+        [
+          {
+            type: 'multi-choice',
+            prompt: '',
+            required: true,
+            options: [
+              newYork[0].headlines[infoLevel[0]],
+              newYork[1].headlines[infoLevel[1]],
+              newYork[2].headlines[infoLevel[2]],
+            ],
+          },
+        ],
+      ],
+    };
+
     // Trial stimuli array for timeline variables
     var test_stimuli = [
       { stimulus: 'img/blue.png', correct_response: 'f' },
@@ -290,6 +315,7 @@
     timeline.push(preload);
     timeline.push(welcome);
     timeline.push(instructions1);
+    timeline.push(nyTrial1);
     timeline.push(test_procedure);
     timeline.push(debrief_block);
 
