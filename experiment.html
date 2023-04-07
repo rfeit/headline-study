@@ -241,31 +241,31 @@
     // New York Trials
 
     // Shuffle the headlines and present
-    infoLevel = shuffleArray(infoLevel);
+    var infoLevel1 = shuffleArray(infoLevel);
     // Array of options presented to participant for a given trial
     var options1 = [
       {
         story_id: newYork[0].story_id,
-        info_level: infoLevel[0],
-        headline: newYork[0].headlines[infoLevel[0]],
+        info_level: infoLevel1[0],
+        headline: newYork[0].headlines[infoLevel1[0]],
       },
       {
         story_id: newYork[1].story_id,
-        info_level: infoLevel[1],
-        headline: newYork[1].headlines[infoLevel[1]],
+        info_level: infoLevel1[1],
+        headline: newYork[1].headlines[infoLevel1[1]],
       },
       {
         story_id: newYork[2].story_id,
-        info_level: infoLevel[2],
-        headline: newYork[2].headlines[infoLevel[2]],
+        info_level: infoLevel1[2],
+        headline: newYork[2].headlines[infoLevel1[2]],
       },
     ];
     // Array to add options to for Phase 2 ranking
     var rankOptions = [];
     rankOptions.push(
-      newYork[0].headlines[infoLevel[1]],
-      newYork[1].headlines[infoLevel[2]],
-      newYork[2].headlines[infoLevel[0]]
+      newYork[0].headlines[infoLevel1[1]],
+      newYork[1].headlines[infoLevel1[2]],
+      newYork[2].headlines[infoLevel1[0]]
     );
 
     var nyTrial1 = {
@@ -284,37 +284,36 @@
       on_finish: function (data) {
         data.phase;
         data.options = options1;
-        data.chosen_story_id = newYork[data.response].story_id;
-        data.chosen_info_level = infoLevel[data.response];
-        data.chosen_headline =
-          newYork[data.response].headlines[infoLevel[data.response]];
+        data.chosen_story_id = options1[data.response].story_id;
+        data.chosen_info_level = options1[data.response].info_level;
+        data.chosen_headline = options1[data.response].headline;
       },
     };
 
-    infoLevel = shuffleArray(infoLevel);
+    var infoLevel2 = shuffleArray(infoLevel);
     var options2 = [
       {
         story_id: newYork[3].story_id,
-        info_level: infoLevel[0],
-        headline: newYork[3].headlines[infoLevel[0]],
+        info_level: infoLevel2[0],
+        headline: newYork[3].headlines[infoLevel2[0]],
       },
       {
         story_id: newYork[4].story_id,
-        info_level: infoLevel[1],
-        headline: newYork[4].headlines[infoLevel[1]],
+        info_level: infoLevel2[1],
+        headline: newYork[4].headlines[infoLevel2[1]],
       },
       {
         story_id: newYork[5].story_id,
-        info_level: infoLevel[2],
-        headline: newYork[5].headlines[infoLevel[2]],
+        info_level: infoLevel2[2],
+        headline: newYork[5].headlines[infoLevel2[2]],
       },
     ];
     // Array to add options to for Phase 2 ranking
     var rankOptions = [];
     rankOptions.push(
-      newYork[3].headlines[infoLevel[1]],
-      newYork[4].headlines[infoLevel[2]],
-      newYork[5].headlines[infoLevel[0]]
+      newYork[3].headlines[infoLevel2[1]],
+      newYork[4].headlines[infoLevel2[2]],
+      newYork[5].headlines[infoLevel2[0]]
     );
 
     var nyTrial2 = {
@@ -333,37 +332,36 @@
       on_finish: function (data) {
         data.phase;
         data.options = options2;
-        data.chosen_story_id = newYork[data.response + 3].story_id;
-        data.chosen_info_level = infoLevel[data.response];
-        data.chosen_headline =
-          newYork[data.response + 3].headlines[infoLevel[data.response]];
+        data.chosen_story_id = options2[data.response].story_id;
+        data.chosen_info_level = options2[data.response].info_level;
+        data.chosen_headline = options2[data.response].headline;
       },
     };
 
     // Technology Trials
 
-    infoLevel = shuffleArray(infoLevel);
+    var infoLevel3 = shuffleArray(infoLevel);
     var options3 = [
       {
         story_id: technology[0].story_id,
-        info_level: infoLevel[0],
-        headline: technology[0].headlines[infoLevel[0]],
+        info_level: infoLevel3[0],
+        headline: technology[0].headlines[infoLevel3[0]],
       },
       {
         story_id: technology[1].story_id,
-        info_level: infoLevel[1],
-        headline: technology[1].headlines[infoLevel[1]],
+        info_level: infoLevel3[1],
+        headline: technology[1].headlines[infoLevel3[1]],
       },
       {
         story_id: technology[2].story_id,
-        info_level: infoLevel[2],
-        headline: technology[2].headlines[infoLevel[2]],
+        info_level: infoLevel3[2],
+        headline: technology[2].headlines[infoLevel3[2]],
       },
     ];
     rankOptions.push(
-      technology[0].headlines[infoLevel[1]],
-      technology[1].headlines[infoLevel[2]],
-      technology[2].headlines[infoLevel[0]]
+      technology[0].headlines[infoLevel3[1]],
+      technology[1].headlines[infoLevel3[2]],
+      technology[2].headlines[infoLevel3[0]]
     );
 
     var techTrial1 = {
@@ -382,35 +380,34 @@
       on_finish: function (data) {
         data.phase;
         data.options = options3;
-        data.chosen_story_id = technology[data.response].story_id;
-        data.chosen_info_level = infoLevel[data.response];
-        data.chosen_headline =
-          technology[data.response].headlines[infoLevel[data.response]];
+        data.chosen_story_id = options3[data.response].story_id;
+        data.chosen_info_level = options3[data.response].info_level;
+        data.chosen_headline = options3[data.response].headline;
       },
     };
 
-    infoLevel = shuffleArray(infoLevel);
+    var infoLevel4 = shuffleArray(infoLevel);
     var options4 = [
       {
         story_id: technology[3].story_id,
-        info_level: infoLevel[0],
-        headline: technology[3].headlines[infoLevel[0]],
+        info_level: infoLevel4[0],
+        headline: technology[3].headlines[infoLevel4[0]],
       },
       {
         story_id: technology[4].story_id,
-        info_level: infoLevel[1],
-        headline: technology[4].headlines[infoLevel[1]],
+        info_level: infoLevel4[1],
+        headline: technology[4].headlines[infoLevel4[1]],
       },
       {
         story_id: technology[5].story_id,
-        info_level: infoLevel[2],
-        headline: technology[5].headlines[infoLevel[2]],
+        info_level: infoLevel4[2],
+        headline: technology[5].headlines[infoLevel4[2]],
       },
     ];
     rankedHeadlines.push(
-      technology[3].headlines[infoLevel[1]],
-      technology[4].headlines[infoLevel[2]],
-      technology[5].headlines[infoLevel[0]]
+      technology[3].headlines[infoLevel4[1]],
+      technology[4].headlines[infoLevel4[2]],
+      technology[5].headlines[infoLevel4[0]]
     );
     var techTrial2 = {
       type: jsPsychHtmlButtonResponse,
@@ -428,37 +425,36 @@
       on_finish: function (data) {
         data.phase;
         data.options = options4;
-        data.chosen_story_id = technology[data.response + 3].story_id;
-        data.chosen_info_level = infoLevel[data.response];
-        data.chosen_headline =
-          technology[data.response + 3].headlines[infoLevel[data.response]];
+        data.chosen_story_id = options4[data.response].story_id;
+        data.chosen_info_level = options4[data.response].info_level;
+        data.chosen_headline = options4[data.response].headline;
       },
     };
 
     // Arts Trials
 
-    infoLevel = shuffleArray(infoLevel);
+    var infoLevel5 = shuffleArray(infoLevel);
     var options5 = [
       {
         story_id: arts[0].story_id,
-        info_level: infoLevel[0],
-        headline: arts[0].headlines[infoLevel[0]],
+        info_level: infoLevel5[0],
+        headline: arts[0].headlines[infoLevel5[0]],
       },
       {
         story_id: arts[1].story_id,
-        info_level: infoLevel[1],
-        headline: arts[1].headlines[infoLevel[1]],
+        info_level: infoLevel5[1],
+        headline: arts[1].headlines[infoLevel5[1]],
       },
       {
         story_id: arts[2].story_id,
-        info_level: infoLevel[2],
-        headline: arts[2].headlines[infoLevel[2]],
+        info_level: infoLevel5[2],
+        headline: arts[2].headlines[infoLevel5[2]],
       },
     ];
     rankedHeadlines.push(
-      arts[0].headlines[infoLevel[1]],
-      arts[1].headlines[infoLevel[2]],
-      arts[2].headlines[infoLevel[0]]
+      arts[0].headlines[infoLevel5[1]],
+      arts[1].headlines[infoLevel5[2]],
+      arts[2].headlines[infoLevel5[0]]
     );
     var artsTrial1 = {
       type: jsPsychHtmlButtonResponse,
@@ -476,35 +472,34 @@
       on_finish: function (data) {
         data.phase;
         data.options = options5;
-        data.chosen_story_id = arts[data.response].story_id;
-        data.chosen_info_level = infoLevel[data.response];
-        data.chosen_headline =
-          arts[data.response].headlines[infoLevel[data.response]];
+        data.chosen_story_id = options5[data.response].story_id;
+        data.chosen_info_level = options5[data.response].info_level;
+        data.chosen_headline = options5[data.response].headline;
       },
     };
 
-    infoLevel = shuffleArray(infoLevel);
+    var infoLevel6 = shuffleArray(infoLevel);
     options6 = [
       {
         story_id: arts[3].story_id,
-        info_level: infoLevel[0],
-        headline: arts[3].headlines[infoLevel[0]],
+        info_level: infoLevel6[0],
+        headline: arts[3].headlines[infoLevel6[0]],
       },
       {
         story_id: arts[4].story_id,
-        info_level: infoLevel[1],
-        headline: arts[4].headlines[infoLevel[1]],
+        info_level: infoLevel6[1],
+        headline: arts[4].headlines[infoLevel6[1]],
       },
       {
         story_id: arts[5].story_id,
-        info_level: infoLevel[2],
-        headline: arts[5].headlines[infoLevel[2]],
+        info_level: infoLevel6[2],
+        headline: arts[5].headlines[infoLevel6[2]],
       },
     ];
     rankedHeadlines.push(
-      arts[3].headlines[infoLevel[1]],
-      arts[4].headlines[infoLevel[2]],
-      arts[5].headlines[infoLevel[0]]
+      arts[3].headlines[infoLevel6[1]],
+      arts[4].headlines[infoLevel6[2]],
+      arts[5].headlines[infoLevel6[0]]
     );
     var artsTrial2 = {
       type: jsPsychHtmlButtonResponse,
@@ -522,10 +517,9 @@
       on_finish: function (data) {
         data.phase;
         data.options = options6;
-        data.chosen_story_id = arts[data.response + 3].story_id;
-        data.chosen_info_level = infoLevel[data.response];
-        data.chosen_headline =
-          arts[data.response + 3].headlines[infoLevel[data.response]];
+        data.chosen_story_id = options6[data.response].story_id;
+        data.chosen_info_level = options6[data.response].info_level;
+        data.chosen_headline = options6[data.response].headline;
       },
     };
 
