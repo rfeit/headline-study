@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Headline Study</title>
+    <script src="https://unpkg.com/jspsych@7.3.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.2"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.1.2"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-preload@1.1.2"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey@0.2.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.1.2"></script>
+
+    <link
+      href="https://unpkg.com/jspsych@7.3.1/css/jspsych.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@jspsych/plugin-survey@0.2.1/css/survey.css"
+    />
+    <style>
+      .jspsych-html-button-response-button {
+        display: block !important;
+      }
+      .headline {
+        display: block;
+        margin: 20px auto;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body></body>
+  <script>
+    // Initialize jsPsych
+    var jsPsych = initJsPsych({
+      on_finish: function () {
+        jsPsych.data.displayData();
+      },
+    });
+
+    // Timeline contains set of trials to run in the experiment
+    var timeline = [];
+
+    // Welcome message
+    var welcome = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: 'Welcome to the experiment. Press any key to begin.',
+    };
+
+    // Instructions
+    var instructions1 = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: `
+      <p>In each round, you will see three headlines.</p>
+      <p>Please click on the headline you would most like to read, and you will get an opportunity to read the articles you select later in the experiment.</p>
+      <p>There will be six rounds of articles to view. This should take approximately two minutes.</p>
+      <p>Press any key to begin.</p>
+    `,
+      post_trial_gap: 500,
+    };
+
+    // Headline arrays
+    var newYork = [
+      {
+        story_id: 1,
+        headlines: [
+          'Famous Venue and Radio Show Unite',
+          'Famous Stone Pony Night Club and King Biscuit Radio Show Unite',
+          "Famous Stone Pony Night Club and King Biscuit Radio Show Unite for Rock 'n Roll's Sake",
+        ],
+      },
+      {
+        story_id: 2,
+        headlines: [
+          'A Band Rocks on Toward a Dream',
+          'A Local Band Rocks on Toward their Dreams of Musical Success',
+          'Local Band Liquid Carousel Rocks on Toward their Dreams of Musical Success and Stardom',
+        ],
+      },
+      {
+        story_id: 3,
+        headlines: [
+          'Tweed Courthouse Restored in Manhattan',
+          'Tweed Courthouse, Symbol of Corruption, Restored in Lower Manhattan',
+          'Giuliani Administration Restores Tweed Courthouse, Symbol of Public Corruption in Lower Manhattan',
+        ],
+      },
+      {
+        story_id: 4,
+        headlines: [
+          'New York Librarian Retires',
+          'New York Librarian Retires After 53 Years at Library',
+          'New York Librarian Jean Bowen Retires After 53 Years, Hopes to Break Stereotypes',
+        ],
+      },
+      {
+        story_id: 5,
+        headlines: [
+          'Creating an Encylopedia of New Jersey',
+          'Historians Team Up to Create an Encyclopedia of New Jersey',
+          "Historians Team Up to Create an Encyclopedia of New Jersey, Documenting the State's Fascinating History and People",
+        ],
+      },
+      {
+        story_id: 6,
+        headlines: [
+          'Gynecologist Accused of Fraud',
+          'Gynecologist Accused of Billing Fraud for Infertility Surgeries',
+          'Gynecologist Lauersen Accused of $4 Million Billing Fraud for Infertility Surgeries in Landmark Case',
+        ],
+      },
+    ];
+
+    var technology = [
+      {
+        story_id: 7,
+        headlines: [
+          'Satellite Station Encounters Technological Issues',
+          'Military Satellite Station Encounters Technological Issues Requiring Significant Investments',
+          'Military Satellite Station Encounters Data Issues Requiring Millions of Investment Dollars',
+        ],
+      },
+      {
+        story_id: 8,
+        headlines: [
+          'Computer Challenges Scientific Theory',
+          "Isaac Chuang's Quantum Computer Challenges Moore's Law",
+          "Isaac Chuang's Quantum Computer Challenges Moore's Law Using Magnetic Forces",
+        ],
+      },
+      {
+        story_id: 9,
+        headlines: [
+          'Experts Predict Upcoming Tech Issues',
+          'Experts Predict Technology Challenges Facing Schools',
+          'Experts Predict Key Educational Software and Technology Challenges for Schools in Upcoming Year',
+        ],
+      },
+      {
+        story_id: 10,
+        headlines: [
+          'Personal Journal Websites Are The New Trend',
+          'Personal Journal Websites: New Trend Redefines Internet Use',
+          'Personal Journal Websites: New Trend Redefines Internet Use By Creating Communities',
+        ],
+      },
+      {
+        story_id: 11,
+        headlines: [
+          'Technology Review: Plasma TVs',
+          'Technology Review: Plasma TVs, Quality at a Cost',
+          'Technology Review: High Resolution Plasma TV Displays Cost Thousands',
+        ],
+      },
+      {
+        story_id: 12,
+        headlines: [
+          'Tech Q&A: USB 2.0',
+          'Tech Q&A on USB 2.0: Tips for Internet Usage',
+          'Tech Q&A on USB 2.0: Internet Privacy and Browser Remorse',
+        ],
+      },
+    ];
+
+    var arts = [
+      {
+        story_id: 13,
+        headlines: [
+          'Rapper Urges Audience to Participate',
+          "Rapper Q-Unique Encourages Audience Participation at S.O.B's",
+          'Rapper Q-Unique of "Arsonists" Finds Ways to Encourage Audience Participation at S.O.B\'s Through Taunting',
+        ],
+      },
+      {
+        story_id: 14,
+        headlines: [
+          'Dance: A Year in Review',
+          'Year of Dance in Review: New Trends and Celebrations',
+          'A Year of Dance in Review: From Balanchine Celebrations to the Hiccuping Trend',
+        ],
+      },
+      {
+        story_id: 15,
+        headlines: [
+          'Digital Artists Awarded Grants',
+          'New Foundation Awards Digital Artists $91K in Grants',
+          'Creative Capital Foundation Awards $91K in Grants to Emerging Digital Artists',
+        ],
+      },
+      {
+        story_id: 16,
+        headlines: [
+          'Inside a Tribute to Bruce Springsteen',
+          'Examining a Tribute Album to Bruce Springsteen\'s "Nebraska"',
+          'Examining "Badlands," A Thirteen-Artist Collobarative Tribute to Bruce Springsteen\'s "Nebraska"',
+        ],
+      },
+      {
+        story_id: 17,
+        headlines: [
+          'New Research on Ancient Sparta',
+          'New Research into Spartan Women Challenges Conventional Wisdom',
+          'New Research on Ancient Spartan Women Reimagines their Societal Roles',
+        ],
+      },
+      {
+        story_id: 18,
+        headlines: [
+          'Nickelodeon TV Show Returns',
+          "Nickelodeon's 'Slimetime Live' Starts New Season",
+          "Nickelodeon's Messy 'Slimetime Live' Starts New Season Hosted by Dave Aizer",
+        ],
+      },
+    ];
+
+    // Shuffle the stories within each section
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    newYork = shuffleArray(newYork);
+    technology = shuffleArray(technology);
+    arts = shuffleArray(arts);
+
+    // Low/med/high information array
+    var infoLevel = [0, 1, 2];
+
+    // Ranked headlines
+    var rankedHeadlines = [];
+
+    // New York Trials
+
+    // Shuffle the headlines and present
+    var infoLevel1 = shuffleArray(infoLevel);
+    // Array of options presented to participant for a given trial
+    var options1 = [
+      {
+        story_id: newYork[0].story_id,
+        info_level: infoLevel1[0],
+        headline: newYork[0].headlines[infoLevel1[0]],
+      },
+      {
+        story_id: newYork[1].story_id,
+        info_level: infoLevel1[1],
+        headline: newYork[1].headlines[infoLevel1[1]],
+      },
+      {
+        story_id: newYork[2].story_id,
+        info_level: infoLevel1[2],
+        headline: newYork[2].headlines[infoLevel1[2]],
+      },
+    ];
+    // Array to add options to for Phase 2 ranking
+    var rankOptions = [];
+    rankOptions.push(
+      newYork[0].headlines[infoLevel1[1]],
+      newYork[1].headlines[infoLevel1[2]],
+      newYork[2].headlines[infoLevel1[0]]
+    );
+
+    var nyTrial1 = {
+      type: jsPsychHtmlButtonResponse,
+      data: { task: 'P1-choice' },
+      stimulus: '',
+      choices: [
+        options1[0].headline,
+        options1[1].headline,
+        options1[2].headline,
+      ],
+      button_html: '<button class="jspsych-btn headline">%choice%</button>',
+      post_trial_gap: 500,
+      data: {
+        phase: 1,
+      },
+      on_finish: function (data) {
+        data.phase;
+        data.options = options1;
+        data.chosen_story_id = options1[data.response].story_id;
+        data.chosen_info_level = options1[data.response].info_level;
+        data.chosen_headline = options1[data.response].headline;
+      },
+    };
+
+    var infoLevel2 = shuffleArray(infoLevel);
+    var options2 = [
+      {
+        story_id: newYork[3].story_id,
+        info_level: infoLevel2[0],
+        headline: newYork[3].headlines[infoLevel2[0]],
+      },
+      {
+        story_id: newYork[4].story_id,
+        info_level: infoLevel2[1],
+        headline: newYork[4].headlines[infoLevel2[1]],
+      },
+      {
+        story_id: newYork[5].story_id,
+        info_level: infoLevel2[2],
+        headline: newYork[5].headlines[infoLevel2[2]],
+      },
+    ];
+    // Array to add options to for Phase 2 ranking
+    var rankOptions = [];
+    rankOptions.push(
+      newYork[3].headlines[infoLevel2[1]],
+      newYork[4].headlines[infoLevel2[2]],
+      newYork[5].headlines[infoLevel2[0]]
+    );
+
+    var nyTrial2 = {
+      type: jsPsychHtmlButtonResponse,
+      data: { task: 'P1-choice' },
+      stimulus: '',
+      choices: [
+        options2[0].headline,
+        options2[1].headline,
+        options2[2].headline,
+      ],
+      button_html: '<button class="jspsych-btn headline">%choice%</button>',
+      post_trial_gap: 500,
+      data: {
+        phase: 1,
+      },
+      on_finish: function (data) {
+        data.phase;
+        data.options = options2;
+        data.chosen_story_id = options2[data.response].story_id;
+        data.chosen_info_level = options2[data.response].info_level;
+        data.chosen_headline = options2[data.response].headline;
+      },
+    };
+
+    // Technology Trials
+
+    var infoLevel3 = shuffleArray(infoLevel);
+    var options3 = [
+      {
+        story_id: technology[0].story_id,
+        info_level: infoLevel3[0],
+        headline: technology[0].headlines[infoLevel3[0]],
+      },
+      {
+        story_id: technology[1].story_id,
+        info_level: infoLevel3[1],
+        headline: technology[1].headlines[infoLevel3[1]],
+      },
+      {
+        story_id: technology[2].story_id,
+        info_level: infoLevel3[2],
+        headline: technology[2].headlines[infoLevel3[2]],
+      },
+    ];
+    rankOptions.push(
+      technology[0].headlines[infoLevel3[1]],
+      technology[1].headlines[infoLevel3[2]],
+      technology[2].headlines[infoLevel3[0]]
+    );
+
+    var techTrial1 = {
+      type: jsPsychHtmlButtonResponse,
+      data: { task: 'P1-choice' },
+      stimulus: '',
+      choices: [
+        options3[0].headline,
+        options3[1].headline,
+        options3[2].headline,
+      ],
+      button_html: '<button class="jspsych-btn headline">%choice%</button>',
+      post_trial_gap: 500,
+      data: {
+        phase: 1,
+      },
+      on_finish: function (data) {
+        data.phase;
+        data.options = options3;
+        data.chosen_story_id = options3[data.response].story_id;
+        data.chosen_info_level = options3[data.response].info_level;
+        data.chosen_headline = options3[data.response].headline;
+      },
+    };
+
+    var infoLevel4 = shuffleArray(infoLevel);
+    var options4 = [
+      {
+        story_id: technology[3].story_id,
+        info_level: infoLevel4[0],
+        headline: technology[3].headlines[infoLevel4[0]],
+      },
+      {
+        story_id: technology[4].story_id,
+        info_level: infoLevel4[1],
+        headline: technology[4].headlines[infoLevel4[1]],
+      },
+      {
+        story_id: technology[5].story_id,
+        info_level: infoLevel4[2],
+        headline: technology[5].headlines[infoLevel4[2]],
+      },
+    ];
+    rankedHeadlines.push(
+      technology[3].headlines[infoLevel4[1]],
+      technology[4].headlines[infoLevel4[2]],
+      technology[5].headlines[infoLevel4[0]]
+    );
+    var techTrial2 = {
+      type: jsPsychHtmlButtonResponse,
+      data: { task: 'P1-choice' },
+      stimulus: '',
+      choices: [
+        options4[0].headline,
+        options4[1].headline,
+        options4[2].headline,
+      ],
+      button_html: '<button class="jspsych-btn headline">%choice%</button>',
+      post_trial_gap: 500,
+      data: {
+        phase: 1,
+      },
+      on_finish: function (data) {
+        data.phase;
+        data.options = options4;
+        data.chosen_story_id = options4[data.response].story_id;
+        data.chosen_info_level = options4[data.response].info_level;
+        data.chosen_headline = options4[data.response].headline;
+      },
+    };
+
+    // Arts Trials
+
+    var infoLevel5 = shuffleArray(infoLevel);
+    var options5 = [
+      {
+        story_id: arts[0].story_id,
+        info_level: infoLevel5[0],
+        headline: arts[0].headlines[infoLevel5[0]],
+      },
+      {
+        story_id: arts[1].story_id,
+        info_level: infoLevel5[1],
+        headline: arts[1].headlines[infoLevel5[1]],
+      },
+      {
+        story_id: arts[2].story_id,
+        info_level: infoLevel5[2],
+        headline: arts[2].headlines[infoLevel5[2]],
+      },
+    ];
+    rankedHeadlines.push(
+      arts[0].headlines[infoLevel5[1]],
+      arts[1].headlines[infoLevel5[2]],
+      arts[2].headlines[infoLevel5[0]]
+    );
+    var artsTrial1 = {
+      type: jsPsychHtmlButtonResponse,
+      data: { task: 'P1-choice' },
+      stimulus: '',
+      choices: [
+        options5[0].headline,
+        options5[1].headline,
+        options5[2].headline,
+      ],
+      button_html: '<button class="jspsych-btn headline">%choice%</button>',
+      post_trial_gap: 500,
+      data: {
+        phase: 1,
+      },
+      on_finish: function (data) {
+        data.phase;
+        data.options = options5;
+        data.chosen_story_id = options5[data.response].story_id;
+        data.chosen_info_level = options5[data.response].info_level;
+        data.chosen_headline = options5[data.response].headline;
+      },
+    };
+
+    var infoLevel6 = shuffleArray(infoLevel);
+    options6 = [
+      {
+        story_id: arts[3].story_id,
+        info_level: infoLevel6[0],
+        headline: arts[3].headlines[infoLevel6[0]],
+      },
+      {
+        story_id: arts[4].story_id,
+        info_level: infoLevel6[1],
+        headline: arts[4].headlines[infoLevel6[1]],
+      },
+      {
+        story_id: arts[5].story_id,
+        info_level: infoLevel6[2],
+        headline: arts[5].headlines[infoLevel6[2]],
+      },
+    ];
+    rankedHeadlines.push(
+      arts[3].headlines[infoLevel6[1]],
+      arts[4].headlines[infoLevel6[2]],
+      arts[5].headlines[infoLevel6[0]]
+    );
+    var artsTrial2 = {
+      type: jsPsychHtmlButtonResponse,
+      data: { task: 'P1-choice' },
+      stimulus: '',
+      choices: [
+        options6[0].headline,
+        options6[1].headline,
+        options6[2].headline,
+      ],
+      button_html: '<button class="jspsych-btn headline">%choice%</button>',
+      post_trial_gap: 500,
+      data: {
+        phase: 1,
+      },
+      on_finish: function (data) {
+        data.phase;
+        data.options = options6;
+        data.chosen_story_id = options6[data.response].story_id;
+        data.chosen_info_level = options6[data.response].info_level;
+        data.chosen_headline = options6[data.response].headline;
+      },
+    };
+
+    var rankTrial = {
+      type: jsPsychSurvey,
+      data: { task: 'P2-rank' },
+      pages: [
+          [
+            {
+            type: 'ranking',
+            prompt: 'Rank \'em! (now with stories!)',
+            name: 'ranktest',
+            options: [
+              newYork[0].headlines[infoLevel[1]],
+              newYork[1].headlines[infoLevel[2]],
+              newYork[2].headlines[infoLevel[0]],
+              newYork[3].headlines[infoLevel[1]],
+              newYork[4].headlines[infoLevel[2]],
+              newYork[5].headlines[infoLevel[0]],
+              technology[0].headlines[infoLevel[1]],
+              technology[1].headlines[infoLevel[2]],
+              technology[2].headlines[infoLevel[0]],
+              technology[3].headlines[infoLevel[1]],
+              technology[4].headlines[infoLevel[2]],
+              technology[5].headlines[infoLevel[0]],
+              arts[0].headlines[infoLevel[1]],
+              arts[1].headlines[infoLevel[2]],
+              arts[2].headlines[infoLevel[0]],
+              arts[3].headlines[infoLevel[1]],
+              arts[4].headlines[infoLevel[2]],
+              arts[5].headlines[infoLevel[0]],
+            ],
+            option_reorder: "random",
+          }
+        ]
+      ],
+    }
+
+    // Push the trials onto the timeline array
+    timeline.push(welcome);
+    timeline.push(instructions1);
+    timeline.push(nyTrial1);
+    timeline.push(nyTrial2);
+    timeline.push(techTrial1);
+    timeline.push(techTrial2);
+    timeline.push(artsTrial1);
+    timeline.push(artsTrial2);
+    timeline.push(rankTrial);
+
+    // Run the experiment
+    jsPsych.run(timeline);
+  </script>
+</html>
