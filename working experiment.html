@@ -8,6 +8,7 @@
     <script src="https://unpkg.com/@jspsych/plugin-preload@1.1.2"></script>
     <script src="https://unpkg.com/@jspsych/plugin-survey@0.2.1"></script>
     <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.1.2"></script>
+    <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
 
     <link
       href="https://unpkg.com/jspsych@7.3.1/css/jspsych.css"
@@ -34,9 +35,23 @@
     // Initialize jsPsych
     var jsPsych = initJsPsych({
       on_finish: function () {
-        jsPsych.data.displayData();
+        // jsPsych.data.displayData();
+        window.location = "https://app.prolific.co/submissions/complete?cc=XXXXXXX"
       },
     });
+
+    // capture info from Prolific
+    var subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
+    var study_id = jsPsych.data.getURLVariable('STUDY_ID');
+    var session_id = jsPsych.data.getURLVariable('SESSION_ID');
+
+    jsPsych.data.addProperties({
+      subject_id: subject_id,
+      study_id: study_id,
+      session_id: session_id
+    });
+
+    const filename = `${subject_id}.json`;
 
     // Timeline contains set of trials to run in the experiment
     var timeline = [];
@@ -558,6 +573,20 @@
       ],
     }
 
+    const save_data = {
+      type: jsPsychPipe,
+      action: "save",
+      experiment_id: "maFSiu7AEc5X",
+      filename: filename,
+      data_string: ()=>jsPsych.data.get().json()
+    };
+
+    var goodbye = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: 'Thank you for completing this phase of the experiment. You will now be redirected back to Prolific to finish the experiment.',
+      choices: "NO_KEYS"
+    };
+
     // Push the trials onto the timeline array
     timeline.push(welcome);
     timeline.push(instructions1);
@@ -568,6 +597,8 @@
     timeline.push(artsTrial1);
     timeline.push(artsTrial2);
     timeline.push(rankTrial);
+    timeline.push(save_data);
+    timeline.push(goodbye);
 
     // Run the experiment
     jsPsych.run(timeline);
